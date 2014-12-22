@@ -7,7 +7,11 @@ import Tkinter as TK
 import os
 import urllib2
 import time
-from uuid import getnode as get_mac
+#from uuid import getnode as get_mac
+from uuid import uuid4
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+CONFIG_FILE = os.path.join( BASE_DIR, 'myconfig.txt')
 
 #http://sebsauvage.net/python/gui/
 
@@ -28,17 +32,13 @@ class grabboot(TK.Tk):
         self.settings = {}
         
         #la meva mac
-        self.mac = ':'.join(("%012X" % get_mac() )[i:i+2]  for i in range(0, 12, 2))
+        #self.mac = ':'.join(("%012X" % get_mac() )[i:i+2]  for i in range(0, 12, 2))
+        
+        #defaultMasterKey
+        self.defaultMasterKey = "00000000000000000000"
         
         #carregar el fitxer de configuració
         self.read_config_file()
-        
-        #masterkey
-        defaultMasterKey = "00000000000000000000"
-        self.masterkey = self.settings.get("masterkey", defaultMasterKey)
-        
-        #url per anar a buscar el contingut a mostrar:
-        self.source = "http://rasp.cat/giveme/{mac}/{masterkey}".format( mac= self.mac, masterkey = self.masterkey)
         
         #indica si cal re-engegar els navegadors
         self.force_restart_browse = True
@@ -54,7 +54,7 @@ class grabboot(TK.Tk):
         #POWERDOWN_TIME=0
                 
         #si tenim masterkey comencem
-        if self.masterkey != defaultMasterKey:
+        if self.masterkey != self.defaultMasterKey:
             self.run_button(3)
 
     def initialize(self):
@@ -122,7 +122,7 @@ class grabboot(TK.Tk):
         self.entryMyConfigVarOK = TK.Label(bg='green', relief=TK.SUNKEN,width=5)
         self.entryMyConfigVarOK.grid(row=row,column=3,pady=(10,10) ,padx=(10,10))
 
-        #-------------- Els meu config -------------
+        #-------------- Run -------------
         row += 1
         self.labelGo = TK.StringVar(value=u"Run!")
         l = TK.Label(self,textvariable=self.labelMonitor,anchor="w",relief=TK.FLAT,)
@@ -217,21 +217,42 @@ class grabboot(TK.Tk):
     #------------------------------------------------------------------------------
 
     def read_config_file(self):
-        f = open ("myconfig.txt", "a+")
+        
+        desa_settings = False
+        f = open (CONFIG_FILE, "a+")
         f.seek(0)
         data=f.read().split('\n')
         f.close()
-        validlines = [ l for l in data if l and not l.startswith("#") and not l.startswith(" ") and "=" in l ]
+        validlines = [ l.replace(u" ","") for l in data if l and not l.startswith("#") and not l.startswith(" ") and "=" in l ]
         for l in validlines:
             parell = l.split("=")
             self.settings[parell[0]]=parell[1]
+            
+        if 'masterkey' not in self.settings:
+            desa_settings = True
+            self.settings['masterkey']=self.defaultMasterKey
+            
+        if 'deviceid' not in self.settings:
+            desa_settings = True
+            self.settings['deviceid']=str( uuid4() ).split("-")[-1]   #12 caracters
+            
         self.masterkey = self.settings.get("masterkey","00000000000000000000")
-        self.source = "http://rasp.cat/giveme/{mac}/{masterkey}".format( mac= self.mac, masterkey = self.masterkey)
+        self.deviceid = self.settings['deviceid']
+        self.source = "http://rasp.cat/giveme/{version}/{deviceid}/{masterkey}".format(version = 1, deviceid= self.deviceid, masterkey = self.masterkey)
+        
+        #deso el fitxer:
+        if desa_settings:
+            contingut_txt = u"\n".join( [ u"{0}={1}".format( s, self.settings[s]  ) for s in self.settings  ]  )
+            f = open (CONFIG_FILE, "w")
+            f.write( contingut_txt )
+            f.close()        
+        
 
     #------------------------------------------------------------------------------
     
     def on_delete(self):
         print "sortint ..."
+        self.stop_browsers()
         self.finalitzar = True
         self.destroy()
         
