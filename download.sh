@@ -3,7 +3,7 @@ yes | sudo apt-get update
 yes | sudo apt-get install chromium x11-xserver-utils ttf-mscorefonts-installer
 cd ~
 wget -O r.zip https://github.com/raspcat/raspcatclient/archive/master.zip
-unzip -x r.zip 
+unzip -o -x r.zip 
 mv raspcatclient-master raspcatclient
 chmod 755 raspcatclient/raspcatclient.py 
 nohup raspcatclient/raspcatclient.py
