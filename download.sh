@@ -2,7 +2,7 @@
 cd ~
 wget -O r.zip https://github.com/raspcat/raspcatclient/archive/master.zip
 if [[ $? -eq 0 ]]; then
-        echo "Descarregant ..."
+        echo "Descarregat. Instal·lant ..."
 else
         echo "No es pot baixar en aquest moment, comprova connexió"
         exit 1
