@@ -12,6 +12,7 @@ from uuid import uuid4
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join( BASE_DIR, 'myconfig.txt')
+PROFILE_DIR = os.path.join( BASE_DIR, 'profile_dir')
 
 #http://sebsauvage.net/python/gui/
 
@@ -25,8 +26,10 @@ class grabboot(TK.Tk):
         #controla si cal finalitzar els threads oberts
         self.finalitzar = False
         
-        #broser
-        self.wb = webbrowser.get('/usr/bin/chromium --user-data-dir=/tmp/kkkkk --kiosk  %s ')
+        #browser
+        browser_command = '/usr/bin/chromium --user-data-dir={profile_dir} --kiosk  %s '.format(  profile_dir = PROFILE_DIR )
+        print browser_command        
+        self.wb = webbrowser.get(browser_command)
         
         #diccionari de settings
         self.settings = {}
@@ -125,7 +128,7 @@ class grabboot(TK.Tk):
         #-------------- Run -------------
         row += 1
         self.labelGo = TK.StringVar(value=u"Run!")
-        l = TK.Label(self,textvariable=self.labelMonitor,anchor="w",relief=TK.FLAT,)
+        l = TK.Label(self,textvariable=self.labelGo,anchor="w",relief=TK.FLAT,)
         l.grid(column=0,row=row,sticky='EW' ,pady=(10,10) ,padx=(10,10))
 
         #--
