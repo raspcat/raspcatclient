@@ -8,3 +8,4 @@ mv raspcatclient-master raspcatclient
 chmod 755 raspcatclient/raspcatclient.py 
 nohup raspcatclient/raspcatclient.py
 rm r.zip
+wget -o /dev/null -O raspcatclient/rasp_black_80.png http://rasp.cat/site-css/pictures/rasp_black_80.png
