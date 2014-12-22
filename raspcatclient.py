@@ -28,7 +28,6 @@ class grabboot(TK.Tk):
         
         #browser
         browser_command = '/usr/bin/chromium --user-data-dir={profile_dir} --kiosk  %s '.format(  profile_dir = PROFILE_DIR )
-        print browser_command        
         self.wb = webbrowser.get(browser_command)
         
         #diccionari de settings
@@ -161,6 +160,7 @@ class grabboot(TK.Tk):
             xset s off   
             xset -dpms   
             xset s noblank 
+            xwit -root -warp 4000 4000
             """
         os.system( no_apaguis_pantalla )
         time.sleep(espera)
