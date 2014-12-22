@@ -10,7 +10,7 @@ import time
 #from uuid import getnode as get_mac
 from uuid import uuid4
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join( BASE_DIR, 'myconfig.txt')
 
 #http://sebsauvage.net/python/gui/
