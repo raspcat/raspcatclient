@@ -14,6 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join( BASE_DIR, 'myconfig.txt')
 PROFILE_DIR = os.path.join( BASE_DIR, 'profile_dir')
 
+
 #http://sebsauvage.net/python/gui/
 
 class grabboot(TK.Tk):
@@ -215,7 +216,7 @@ class grabboot(TK.Tk):
         self.os_thread("leafpad /tmp/monitor.txt")
 
     def open_myconfig_file(self):        
-        self.os_thread("leafpad myconfig.txt")
+        self.os_thread('leafpad "{config_file}"'.format(config_file=CONFIG_FILE))
         
     #------------------------------------------------------------------------------
 
