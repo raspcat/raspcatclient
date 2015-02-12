@@ -245,7 +245,7 @@ class grabboot(TK.Tk):
             
         self.masterkey = self.settings.get("masterkey","00000000000000000000")
         self.deviceid = self.settings['deviceid']
-        self.source = "http://rasp.cat/giveme/{version}/{deviceid}/{masterkey}".format(version = 1, deviceid= self.deviceid, masterkey = self.masterkey)
+        self.source = "https://rasp.cat/giveme/{version}/{deviceid}/{masterkey}".format(version = 1, deviceid= self.deviceid, masterkey = self.masterkey)
         
         #deso el fitxer:
         if desa_settings:
