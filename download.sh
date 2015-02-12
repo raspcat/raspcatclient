@@ -7,7 +7,9 @@ else
         echo "No es pot baixar en aquest moment, comprova connexió"
         exit 1
 fi
-mv raspcatclient raspcatclient-master
+if [[ -d raspcatclient ]]; then
+        mv raspcatclient raspcatclient-master
+fi
 unzip -o -x r.zip 
 mv raspcatclient-master raspcatclient
 chmod 755 raspcatclient/raspcatclient.py 
