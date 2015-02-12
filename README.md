@@ -13,7 +13,7 @@ Necessites ajuda? info@rasp.cat
 
 ```bash
 
- wget -o /dev/null -O - https://raw.githubusercontent.com/raspcat/raspcatclient/master/download.sh | sudo bash
+ wget -qO- https://raw.githubusercontent.com/raspcat/raspcatclient/master/download.sh | bash
 
 ```
 
