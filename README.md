@@ -6,7 +6,7 @@ Client python pel servei [rasp.cat](http://www.rasp.cat)
 ### Passes:
 
 * Instal·lar sistema operatiu ( ex: Raspbian )
-* Instal·lar requeriments: chromium x11-xserver-utils ttf-mscorefonts-installer
+* Instal·lar requeriments: sudo apt-get install xwit chromium x11-xserver-utils ttf-mscorefonts-installer
 * Descarregar script i configurar-lo per tal que s'executin a l'inici.
 
 Necessites ajuda? info@rasp.cat
