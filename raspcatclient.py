@@ -29,7 +29,7 @@ class grabboot(TK.Tk):
         
         #browser
         browser_command = """
-            /usr/bin/chromium --user-data-dir={profile_dir} --kiosk  %s 
+            /usr/bin/chromium --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --user-data-dir={profile_dir} --kiosk  %s 
             """.format(  profile_dir = PROFILE_DIR )
         self.wb = webbrowser.get(browser_command)
         
