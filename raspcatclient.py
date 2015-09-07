@@ -29,9 +29,6 @@ class grabboot(TK.Tk):
         
         #browser
         browser_command = """
-            if [ -f {profile_dir}/Default/Preferences ]; then
-               sed -i 's/exited_cleanly\":\ false/exited_cleanly\":\ true/g' {profile_dir}/Default/Preferences;
-            fi;
             /usr/bin/chromium --user-data-dir={profile_dir} --kiosk  %s 
             """.format(  profile_dir = PROFILE_DIR )
         self.wb = webbrowser.get(browser_command)
@@ -191,6 +188,12 @@ class grabboot(TK.Tk):
             time.sleep(1)
             
     def start_browser(self, url ):
+        exited_cleanly = """
+            if [ -f {profile_dir}/Default/Preferences ]; then
+               sed -i 's/exited_cleanly\":\ false/exited_cleanly\":\ true/g' {profile_dir}/Default/Preferences;
+            fi;
+            """.format(  profile_dir = PROFILE_DIR )
+        os.system( exited_cleanly )
         t = threading.Thread(target=self.wb.open, args=( url, ))
         t.daemon = True
         t.start()                    
