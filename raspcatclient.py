@@ -180,6 +180,7 @@ class grabboot(TK.Tk):
                 hi_ha_error = False
                 try:
                     response = urllib2.urlopen(self.source)
+                    self.entryXarxaVarOK.configure(bg = 'green')
                     url_new = response.read()
                 except urllib2.HTTPError:
                     hi_ha_error = True
