@@ -189,7 +189,7 @@ class grabboot(TK.Tk):
                     hi_ha_error = True
                 except Exception:
                     hi_ha_error = True
-                if hi_ha_errpr:
+                if hi_ha_error:
                     self.entryXarxaVarOK.bg='yellow'
                 i=0
             if url_old != url_new or self.force_restart_browse:         
