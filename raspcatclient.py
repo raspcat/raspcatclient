@@ -168,22 +168,35 @@ class grabboot(TK.Tk):
         os.system( no_apaguis_pantalla )
         time.sleep(espera)
         self.read_config_file()
-        response = urllib2.urlopen(self.source)
-        url_new = response.read()        
+        #response = urllib2.urlopen(self.source)
+        #url_new = response.read()        
+        url_new = ""
         url_old = ""
-        i = 0
+        i = 100
         while True:            
             if self.finalitzar:
                 return            
+            if i >= 20:  
+                hi_ha_error = False
+                try:
+                    response = urllib2.urlopen(self.source)
+                    url_new = response.read()
+                except urllib2.HTTPError:
+                    hi_ha_error = True
+                except urllib2.URLError:
+                    hi_ha_error = True
+                except urllib2.HTTPException:
+                    hi_ha_error = True
+                except Exception:
+                    hi_ha_error = True
+                if hi_ha_errpr:
+                    self.entryXarxaVarOK.bg='yellow'
+                i=0
             if url_old != url_new or self.force_restart_browse:         
+                self.force_restart_browse = False
                 self.stop_browsers( ) 
                 self.start_browser( url_new )  
                 url_old = url_new
-                self.force_restart_browse = False
-            if i >= 20:  
-                response = urllib2.urlopen(self.source)
-                url_new = response.read()
-                i=0
             i+=1  
             time.sleep(1)
             
