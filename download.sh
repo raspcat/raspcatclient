@@ -24,5 +24,5 @@ echo "baixant logo"
 wget -o /dev/null -O raspcatclient/rasp_black_80.png http://rasp.cat/site-css/pictures/rasp_black_80.png
 echo "actualitzant"
 yes | sudo apt-get update
-yes | sudo apt-get install xwit chromium x11-xserver-utils ttf-mscorefonts-installer
+yes | sudo apt-get install xwit chromium-browser x11-xserver-utils ttf-mscorefonts-installer
 #nohup raspcatclient/raspcatclient.py
