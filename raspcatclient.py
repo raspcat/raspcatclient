@@ -29,7 +29,7 @@ class grabboot(TK.Tk):
         
         #browser
         browser_command = """
-            /usr/bin/chromium --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --user-data-dir={profile_dir} --kiosk  %s 
+            /usr/bin/chromium-browser --disable --disable-translate --disable-infobars --disable-suggestions-service --disable-save-password-bubble --user-data-dir={profile_dir} --kiosk  %s 
             """.format(  profile_dir = PROFILE_DIR )
         self.wb = webbrowser.get(browser_command)
         
@@ -213,9 +213,9 @@ class grabboot(TK.Tk):
         t.start()                    
 
     def stop_browsers(self):
-        os.system("killall chromium")
+        os.system("killall chromium-browser")
         time.sleep(1)
-        os.system("killall -9 chromium")
+        os.system("killall -9 chromium-browser")
         time.sleep(1)
         
     #------------------------------------------------------------------------------
